@@ -155,7 +155,7 @@ final class PostHogThrottledMulticastCallback<T> {
         // entirely when nobody is subscribed or no subscriber's throttle window has
         // elapsed yet. This is the steady state when invoked per view layout.
         let shouldDispatch = lock.withLock {
-            !callbacks.isEmpty && now() >= nextEligibleFire
+            !callbacks.isEmpty && now().timeIntervalSinceReferenceDate >= nextEligibleFire.timeIntervalSinceReferenceDate
         }
         guard shouldDispatch else { return }
 
